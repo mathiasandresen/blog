@@ -1,46 +1,66 @@
 <script>
+	import H from '$lib/components/core/H.svelte';
+	import BrandGithub from '$lib/components/icons/brand-github.svelte';
+	import BrandLinkedin from '$lib/components/icons/brand-linkedin.svelte';
+	import BrandTwitter from '$lib/components/icons/brand-twitter.svelte';
 	import PortfolioElement from '$lib/components/PortfolioElement.svelte';
-	import { darkMode } from '$lib/stores/darkmode';
+	import SocialElement from '$lib/components/SocialElement.svelte';
 </script>
 
-<div class="absolute top-2 right-2">
-	<button
-		class="w-12 h-12 text-xl dark:bg-slate-700 shadow-md hover:scale-110 rounded-lg"
-		on:click={() => {
-			$darkMode = !$darkMode;
-		}}
-	>
-		{$darkMode ? '🌙' : '☀️'}
-	</button>
-</div>
+<svelte:head>
+	<title>Mathias Andresen</title>
+</svelte:head>
 
-<div class="flex flex-col gap-16 min-w-3/4 max-w-screen-xl mx-auto">
-	<div class="flex flex-row items-center gap-8 mt-8">
-		<img class="rounded-full" src="https://via.placeholder.com/150" alt="Me" />
-		<div class="dark:text-white">
-			<h1 class="text-4xl">Hello, my name is</h1>
-			<h1 class="text-4xl font-bold">Mathias Andresen</h1>
-			<p class="max-w-sm mt-2">
-				I'm studying Software Engineering at Aalborg University in Denmark, and is a student
-				developer at WEXO A/S
-			</p>
-		</div>
+<div class="flex flex-row items-center gap-8">
+	<img class="rounded-full" src="https://via.placeholder.com/150" alt="Me" />
+	<div class="dark:text-white">
+		<h1 class="flex flex-col">
+			<span class="text-4xl">Hello, my name is</span>
+			<span class="text-4xl font-bold">Mathias Andresen</span>
+		</h1>
+		<p class="mt-2">
+			I'm studying Software Engineering at Aalborg University in Denmark, and I'm a student
+			developer at WEXO A/S
+		</p>
 	</div>
-	<div>
-		<h2 class="text-4xl font-semibold dark:text-white mb-4">Some of my projects</h2>
-		<div class="flex flex-row flex-wrap gap-4">
-			<PortfolioElement
-				title="RPG Cards"
-				description="An open source RPG card generator"
-				imageUrl="https://github.com/mathiasandresen/rpg-cards/blob/main/static/logo_256.png?raw=true"
-			/>
-			<PortfolioElement
-				title="Github"
-				description="Checkout my work on Github"
-				imageUrl="/images/github.png"
-				imageDark={false}
-			/>
-		</div>
+</div>
+<div>
+	<H level={2} class="mb-4">Some of my projects</H>
+	<div class="flex flex-row flex-wrap gap-4 ">
+		<PortfolioElement
+			title="RPG Cards"
+			description="An open source RPG card generator"
+			imageUrl="/images/rpg-cards.png"
+			url="https://rpg-cards.mathiasandresen.dk/"
+		/>
+		<PortfolioElement
+			title="ABK Aalborg"
+			description="A website I help build and maintain"
+			imageUrl="/images/ABK.png"
+			url="https://abk-aalborg.dk/"
+			forceLightImage
+		/>
+		<PortfolioElement
+			title="Github"
+			description="Checkout my work on Github"
+			imageUrl="/images/github.png"
+			url="https://github.com/mathiasandresen"
+			forceLightImage
+		/>
+	</div>
+</div>
+<div>
+	<H level={2} class="mb-4">You can also find me here</H>
+	<div class="flex flex-row flex-wrap gap-4">
+		<SocialElement url="https://github.com/mathiasandresen">
+			<BrandGithub />
+		</SocialElement>
+		<SocialElement url="https://linkedin.com/in/mathias-andresen">
+			<BrandLinkedin />
+		</SocialElement>
+		<SocialElement url="https://twitter.com/Math5969">
+			<BrandTwitter />
+		</SocialElement>
 	</div>
 </div>
 

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
+	import Header from '$lib/components/Header.svelte';
+	import ToggleDarkModeButton from '$lib/components/ToggleDarkModeButton.svelte';
 	import { darkMode } from '$lib/stores/darkmode';
 	import '../app.css';
 
@@ -16,8 +18,14 @@
 
 <svelte:head>
 	<script>
-		if ($browser) {
-			const isDarkMode = getIsDarkMode();
+		if (document) {
+			let isDarkMode = undefined;
+
+			if ('darkMode' in localStorage) {
+				isDarkMode = localStorage.getItem('darkMode') === 'true';
+			} else {
+				isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			}
 
 			if (isDarkMode) {
 				document.documentElement.classList.add('dark');
@@ -27,15 +35,27 @@
 		}
 	</script>
 </svelte:head>
-<main class="dark:bg-slate-600">
-	<slot />
-</main>
+
+<Header>
+	<nav>
+		<a href="/">Home</a>
+		<a href="/blog">Blog</a>
+	</nav>
+	<div slot="end">
+		<ToggleDarkModeButton />
+	</div>
+</Header>
+
+<div class="p-4 flex">
+	<main class="flex flex-col gap-16 min-w-3/4 max-w-screen-md w-full mx-auto py-8">
+		<slot />
+	</main>
+</div>
 
 <style lang="postcss">
 	:root {
-		@apply p-4;
+		@apply bg-slate-50;
 	}
-
 	.dark:root {
 		@apply bg-slate-600;
 	}
