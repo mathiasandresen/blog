@@ -5,6 +5,7 @@
 	import BrandTwitter from '$lib/components/icons/brand-twitter.svelte';
 	import PortfolioElement from '$lib/components/PortfolioElement.svelte';
 	import SocialElement from '$lib/components/SocialElement.svelte';
+	import Notebook from 'tabler-icons-svelte/icons/Notebook';
 </script>
 
 <svelte:head>
@@ -28,6 +29,18 @@
 	<H level={2} class="mb-4">Some of my projects</H>
 	<div class="flex flex-row flex-wrap gap-4 ">
 		<PortfolioElement
+			title="Blog"
+			description="My developer blog where I write about whatever I want"
+			url="/blog"
+		>
+			<div
+				slot="image"
+				class="w-20 h-20 flex flex-row justify-center items-center absolute dark:text-white"
+			>
+				<Notebook strokeWidth="1.5" />
+			</div>
+		</PortfolioElement>
+		<PortfolioElement
 			title="RPG Cards"
 			description="An open source RPG card generator"
 			imageUrl="/images/rpg-cards.png"
@@ -42,7 +55,7 @@
 		/>
 		<PortfolioElement
 			title="Github"
-			description="Checkout my work on Github"
+			description="Check out my work on Github"
 			imageUrl="/images/github.png"
 			url="https://github.com/mathiasandresen"
 			forceLightImage

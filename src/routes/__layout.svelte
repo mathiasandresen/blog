@@ -41,7 +41,7 @@
 		<a href="/">Home</a>
 		<a href="/blog">Blog</a>
 	</nav>
-	<div slot="end">
+	<div slot="end" class="flex flex-row gap-4 items-center">
 		<ToggleDarkModeButton />
 	</div>
 </Header>

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { darkMode } from '$lib/stores/darkmode';
+	import Moon from 'tabler-icons-svelte/icons/Moon';
+	import Sun from 'tabler-icons-svelte/icons/Sun';
 </script>
 
 <button
@@ -8,6 +10,6 @@
 		$darkMode = !$darkMode;
 	}}
 >
-	<div class="hidden dark:block">🌙</div>
-	<div class="dark:hidden">☀️</div>
+	<div class="hidden dark:block"><Moon /></div>
+	<div class="dark:hidden"><Sun color="currentColor" /></div>
 </button>
