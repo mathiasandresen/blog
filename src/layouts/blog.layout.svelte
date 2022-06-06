@@ -5,6 +5,8 @@
 	import { darkMode } from '$lib/stores/darkmode';
 	import dayjs from 'dayjs';
 
+	import '../prism.css';
+
 	/** @type {string} */
 	export let title;
 
