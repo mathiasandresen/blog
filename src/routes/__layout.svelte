@@ -54,9 +54,13 @@
 
 <style lang="postcss">
 	:root {
-		@apply bg-slate-50;
+		@apply bg-slate-50 overflow-y-scroll;
 	}
 	.dark:root {
 		@apply bg-slate-600;
+	}
+
+	:global(body) {
+		@apply w-full;
 	}
 </style>

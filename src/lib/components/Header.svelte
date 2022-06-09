@@ -1,7 +1,7 @@
 <header
 	class="
     bg-white dark:bg-slate-600 border-b border-slate-200 dark:border-slate-700 dark:text-white
-    w-screen h-14 flex flex-row items-center px-8 shadow-sm
+	w-full h-14 flex flex-row items-center px-8 shadow-sm left-0 right-0
     "
 >
 	<div class="flex-1">
