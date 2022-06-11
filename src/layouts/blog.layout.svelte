@@ -1,10 +1,8 @@
 <script>
-	import Breadcrumbs from '$lib/components/Breadcrumbs.svelte';
 	import H from '$lib/components/core/H.svelte';
 	import PostTagElement from '$lib/components/PostTagElement.svelte';
 	import { darkMode } from '$lib/stores/darkmode';
 	import dayjs from 'dayjs';
-
 	import '../prism.css';
 
 	/** @type {string} */
@@ -54,7 +52,7 @@
 	<div class="border-b-4 my-8 dark:border-slate-700" />
 
 	<article
-		class="blog-content prose prose-slate dark:prose-invert before:prose-code:hidden after:prose-code:hidden"
+		class="blog-content prose prose-slate max-w-none dark:prose-invert before:prose-code:hidden after:prose-code:hidden"
 	>
 		<slot />
 	</article>

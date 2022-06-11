@@ -1,19 +1,7 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import Header from '$lib/components/Header.svelte';
 	import ToggleDarkModeButton from '$lib/components/ToggleDarkModeButton.svelte';
-	import { darkMode } from '$lib/stores/darkmode';
 	import '../app.css';
-
-	$: {
-		if (browser) {
-			if ($darkMode) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-		}
-	}
 </script>
 
 <svelte:head>
@@ -29,8 +17,6 @@
 
 			if (isDarkMode) {
 				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
 			}
 		}
 	</script>

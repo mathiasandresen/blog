@@ -15,14 +15,16 @@ const getIsDarkMode = () => {
 	return isDarkMode ?? true;
 };
 
-const createDarkModeStorage = () => {
-	return writable(getIsDarkMode());
-};
+export const darkMode = writable(getIsDarkMode());
 
-export const darkMode = createDarkModeStorage();
-
-darkMode.subscribe((value) => {
+darkMode.subscribe((newValue) => {
 	if (browser) {
-		localStorage.setItem('darkMode', value.toString());
+		if (newValue) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+
+		localStorage.setItem('darkMode', newValue.toString());
 	}
 });

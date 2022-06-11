@@ -1,0 +1,181 @@
+---
+title: Creating a Darkmode Switch in Svelte with TailwindCSS
+standfirst: In this blogpost I will explain how I implemented a dark mode switch using SvelteKit and TailwindCSS
+date: 2022-06-06
+tags: [svelte, tailwind]
+---
+
+<script>
+    import Callout from "$lib/components/blog/Callout.svelte";
+</script>
+
+It is almost expected that every site on the web has a dark mode.
+When I tried to implement dark mode on this site, I ran into a couple of problems.
+This post will show you how to implement dark mode that can be toggled using TailwindCSS and SvelteKit.
+
+## Implementing Dark Mode
+
+TailwindCSS has an entry about dark mode in their documentation [TailwindCSS Dark Mode](https://tailwindcss.com/docs/dark-mode).
+
+Since we want to be able to toggle dark mode, we set the `darkMode` entry in the tailwind config to `'class'`.
+```js
+/* tailwind.config.js */
+module.exports = {
+  darkMode: 'class',
+  // ...
+}
+```
+
+We can now manually toggle dark mode by adding or removing the `dark` class.
+All elements descending from an element with the `dark` class will then be in dark mode.
+Since we want to apply dark mode to the whole site, we will add it to the `<html>` element.
+
+Elements can then be styled with the `dark:` variant:
+```svelte
+<div class="bg-white dark:bg-gray-600">
+    Some content
+</div>
+```
+
+## Toggling Dark Mode
+
+We want to be able to toggle dark mode using a button on the page.
+
+```typescript
+import { browser } from '$app/env';
+
+const toggleDarkMode = () => {
+    if (browser) {
+        if (document.documentElement.classList.contains('dark')) {
+			document.documentElement.classList.remove('dark');
+		} else {
+			document.documentElement.classList.add('dark');
+		}
+    }
+}
+```
+
+We use the `browser` variable to check if we are running in a browser, since the `document` object is only available in the browser.
+If we now call `toggleDarkMode()`, the `dark` class will be added or removed from the `<html>` element, causing the site to be in dark mode.
+
+## Persisting to LocalStorage
+
+The problem is now, that every time the user refreshes the site, the dark mode state will be lost.
+To deal with that, we save the state to localstorage.
+
+We will create a svelte store called `darkMode`.
+```
+📁 src
+└─ 📁 lib
+   └─ 📁 stores
+      └─ 📃 darkmode.ts
+```
+
+```typescript
+/* lib/stores/darkmode.ts */
+import { browser } from '$app/env';
+import { writable } from 'svelte/store';
+
+const getIsDarkMode = () => {
+	let isDarkMode: boolean | undefined = undefined;
+
+	if (browser) {
+		if ('darkMode' in localStorage) {
+			isDarkMode = localStorage.getItem('darkMode') === 'true';
+		} else {
+			isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		}
+	}
+
+	return isDarkMode ?? true;
+};
+
+export const darkMode = writable(getIsDarkMode());
+
+darkMode.subscribe((newValue) => {
+	if (browser) {
+		if (newValue) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+
+		localStorage.setItem('darkMode', newValue.toString());
+	}
+});
+```
+
+First we define a function `getIsDarkMode` that loads the state from localstorage. 
+If the state is not set in localstorage, we check if the user prefers dark mode with the `(prefers-color-scheme: dark)` media query.
+
+We use this function to set the initial value of the `darkMode` store.
+This will make sure that the value is set to the value persisted in localstorage.
+
+We then subscribe to the store.
+When the store changes, we will update the `dark` class on the `<html>` element, and persist the value to localstorage.
+This means that we can change the value of `darkMode` from everywhere throughout our application, and it will automatically enable or disable dark mode and save the users choice.
+
+```svelte
+<button
+    on:click={() => ($darkMode = !$darkMode)}
+>
+    <div class="hidden dark:block">🌙</div>
+	<div class="dark:hidden">☀️</div>
+</button>
+```
+
+<Callout>
+<strong>Note:</strong> I use tailwind to hide and show the correct state instead of reading the store, since the <code>dark</code> class will be added before the store is initialized, if you follow the next section.
+</Callout>
+
+## Stopping the Flicker
+
+One problem of this solution, is that it flickers when the site is reloaded in dark mode.
+This happens because the `darkMode` store is initialized after the page has loaded, causing the site to be in light mode for a short amount of time before the `dark` class is added.
+
+In order to fix this, we will inject a script into the header of the html document.
+If you dont have a `__layout.svelte` file create one now.
+
+```
+📁 src
+└─ 📁 routes
+   └─ 📃 __layout.svelte
+```
+
+```svelte
+<svelte:head>
+	<script>
+		if (document) {
+			let isDarkMode = undefined;
+
+			if ('darkMode' in localStorage) {
+				isDarkMode = localStorage.getItem('darkMode') === 'true';
+			} else {
+				isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			}
+
+			if (isDarkMode) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		}
+	</>
+</svelte:head>
+
+<slot />
+```
+
+We use the `<svelte:head>` element to inject content into the head of the page.
+Scripts in the head will be executed before the rest of the page.
+First we check if the `darkMode` entry is set in localstorage.
+If it is, we set the `isDarkMode` variable to the value of the entry.
+It it is not, we set the variable based on the system preference.
+We then add the `dark` class if `isDarkMode` is `true`.
+
+Since the script is contained, we cannot use SvelteKit's `browser` variable, which is why we check if the `document` object is available instead.
+
+
+## Checkout the full repository
+
+//todo: add link to github repository
