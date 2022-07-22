@@ -11,7 +11,7 @@ export type BlogPost = {
 	};
 };
 
-export const get: RequestHandler = async ({ url: { searchParams } }) => {
+export const GET: RequestHandler = async ({ url: { searchParams } }) => {
 	const _modules = import.meta.glob('./blog/*.svx');
 
 	const body = [];

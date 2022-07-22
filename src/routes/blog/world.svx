@@ -1,7 +1,0 @@
----
-title: My second post
-date: 2022-05-30
-tags: [another, markdown]
----
-
-Hello there

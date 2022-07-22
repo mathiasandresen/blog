@@ -3,6 +3,7 @@ title: Creating a Darkmode Switch in Svelte with TailwindCSS
 standfirst: In this blogpost I will explain how I implemented a dark mode switch using SvelteKit and TailwindCSS
 date: 2022-06-06
 tags: [svelte, tailwind]
+wip: true
 ---
 
 <script>
@@ -18,12 +19,13 @@ This post will show you how to implement dark mode that can be toggled using Tai
 TailwindCSS has an entry about dark mode in their documentation [TailwindCSS Dark Mode](https://tailwindcss.com/docs/dark-mode).
 
 Since we want to be able to toggle dark mode, we set the `darkMode` entry in the tailwind config to `'class'`.
+
 ```js
 /* tailwind.config.js */
 module.exports = {
-  darkMode: 'class',
-  // ...
-}
+	darkMode: 'class',
+	// ...
+};
 ```
 
 We can now manually toggle dark mode by adding or removing the `dark` class.
@@ -31,6 +33,7 @@ All elements descending from an element with the `dark` class will then be in da
 Since we want to apply dark mode to the whole site, we will add it to the `<html>` element.
 
 Elements can then be styled with the `dark:` variant:
+
 ```svelte
 <div class="bg-white dark:bg-gray-600">
     Some content
@@ -45,14 +48,14 @@ We want to be able to toggle dark mode using a button on the page.
 import { browser } from '$app/env';
 
 const toggleDarkMode = () => {
-    if (browser) {
-        if (document.documentElement.classList.contains('dark')) {
+	if (browser) {
+		if (document.documentElement.classList.contains('dark')) {
 			document.documentElement.classList.remove('dark');
 		} else {
 			document.documentElement.classList.add('dark');
 		}
-    }
-}
+	}
+};
 ```
 
 We use the `browser` variable to check if we are running in a browser, since the `document` object is only available in the browser.
@@ -64,6 +67,7 @@ The problem is now, that every time the user refreshes the site, the dark mode s
 To deal with that, we save the state to localstorage.
 
 We will create a svelte store called `darkMode`.
+
 ```
 📁 src
 └─ 📁 lib
@@ -105,7 +109,7 @@ darkMode.subscribe((newValue) => {
 });
 ```
 
-First we define a function `getIsDarkMode` that loads the state from localstorage. 
+First we define a function `getIsDarkMode` that loads the state from localstorage.
 If the state is not set in localstorage, we check if the user prefers dark mode with the `(prefers-color-scheme: dark)` media query.
 
 We use this function to set the initial value of the `darkMode` store.
@@ -174,7 +178,6 @@ It it is not, we set the variable based on the system preference.
 We then add the `dark` class if `isDarkMode` is `true`.
 
 Since the script is contained, we cannot use SvelteKit's `browser` variable, which is why we check if the `document` object is available instead.
-
 
 ## Checkout the full repository
 

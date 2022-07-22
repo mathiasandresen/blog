@@ -13,15 +13,14 @@
 </svelte:head>
 
 <div class="flex flex-row items-center gap-8">
-	<img class="rounded-full" src="https://via.placeholder.com/150" alt="Me" />
+	<img class="rounded-full w-48" src="/images/me_256.png" alt="Me" />
 	<div class="dark:text-white">
 		<h1 class="flex flex-col">
 			<span class="text-4xl">Hello, my name is</span>
 			<span class="text-4xl font-bold">Mathias Andresen</span>
 		</h1>
 		<p class="mt-2">
-			I'm studying Software Engineering at Aalborg University in Denmark, and I'm a student
-			developer at WEXO A/S
+			I'm an upcoming Software Pilot at TRIFORK Aalborg ✈
 		</p>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 <script>
 	import H from '$lib/components/core/H.svelte';
 	import PostTagElement from '$lib/components/PostTagElement.svelte';
+	import Callout from '$lib/components/blog/Callout.svelte';
 	import { darkMode } from '$lib/stores/darkmode';
 	import dayjs from 'dayjs';
 	import '../prism.css';
@@ -17,6 +18,9 @@
 	/** @type {string} */
 	export let date;
 
+	/** @type {boolean} */
+	export let wip = false;
+
 	const dateString = dayjs(date).format('MMMM D, YYYY');
 </script>
 
@@ -31,6 +35,17 @@
 		}' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cdesc%3EDownload more icon variants from https://tabler-icons.io/i/link%3C/desc%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5' /%3E%3Cpath d='M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5' /%3E%3C/svg%3E");
 	`}
 >
+
+	{#if wip}
+		<div class="mb-8">
+			<Callout variant="warning">
+				<div class="text-xl py-4 font-semibold">
+					This article is a work in progress
+				</div>
+			</Callout>
+		</div>
+	{/if}
+
 	<!-- <Breadcrumbs elements={[{ text: 'Blog', href: '/blog' }, { text: title }]} /> -->
 	{#if tags}
 		<div class="flex flex-row gap-2 mb-4 text-white">
