@@ -21,13 +21,13 @@
 				{/each}
 			</div>
 		{/if}
-		<div class="flex flex-row items-center justify-between mb-1">
-			<h3 class="font-bold text-xl">{post.metadata.title}</h3>
+		<div class="flex flex-col justify-between mb-1">
 			{#if post.metadata.date}
-				<div class="dark:text-slate-400 text-sm text-slate-600 font-light">
+				<div class="dark:text-slate-400 text-sm text-slate-600 font-light my-1">
 					{dayjs(post.metadata.date).format('MMMM D, YYYY')}
 				</div>
 			{/if}
+			<h3 class="font-bold text-xl">{post.metadata.title}</h3>
 		</div>
 		{#if post.metadata.standfirst}
 			<p class="dark:text-white italic">{post.metadata.standfirst}</p>

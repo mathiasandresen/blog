@@ -12,7 +12,7 @@
 	<title>Mathias Andresen</title>
 </svelte:head>
 
-<div class="flex flex-row items-center gap-8">
+<div class="flex flex-col md:flex-row items-center gap-8">
 	<img class="rounded-full w-48" src="/images/me_256.png" alt="Me" />
 	<div class="dark:text-white">
 		<h1 class="flex flex-col">
@@ -26,7 +26,7 @@
 </div>
 <div>
 	<H level={2} class="mb-4">Some of my projects</H>
-	<div class="flex flex-row flex-wrap gap-4 ">
+	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 align-middle justify-around md:justify-start">
 		<PortfolioElement
 			title="Blog"
 			description="My developer blog where I write about whatever I want"

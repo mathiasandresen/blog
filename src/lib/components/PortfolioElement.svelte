@@ -10,7 +10,7 @@
 
 <a href={url}>
 	<div
-		class="w-56 h-48 rounded-md shadow-md hover:shadow-lg flex flex-col overflow-hidden bg-white  dark:bg-slate-700 hover:scale-110 transition-all ease-in-out cursor-pointer"
+		class="min-w-[14rem] h-48 rounded-md shadow-md hover:shadow-lg flex flex-col overflow-hidden bg-white  dark:bg-slate-700 hover:scale-110 transition-all ease-in-out cursor-pointer"
 		style={typeof imageUrl === 'string' ? `--image-url: url(${imageUrl});` : ''}
 	>
 		<div
