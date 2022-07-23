@@ -13,7 +13,7 @@
 </svelte:head>
 
 <div class="flex flex-col md:flex-row items-center gap-8">
-	<img class="rounded-full w-48" src="/images/me_256.png" alt="Me" />
+	<img class="rounded-full w-48 h-48" src="/images/me_256.png" alt="Me" />
 	<div class="dark:text-white">
 		<h1 class="flex flex-col">
 			<span class="text-4xl">Hello, my name is</span>
