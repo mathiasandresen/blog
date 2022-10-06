@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 import Path from 'path';
 
 export type BlogPost = {
@@ -12,7 +12,7 @@ export type BlogPost = {
 };
 
 export const GET: RequestHandler = async ({ url: { searchParams } }) => {
-	const _modules = import.meta.glob('./blog/*.svx');
+	const _modules = import.meta.glob('../../../../content/*.svx');
 
 	const body = [];
 	for (const path in _modules) {
@@ -21,19 +21,16 @@ export const GET: RequestHandler = async ({ url: { searchParams } }) => {
 		);
 	}
 
-	let posts = await Promise.all(body);
+	let posts = (await Promise.all(body)) as BlogPost[];
 
 	if (searchParams.has('tag')) {
-		posts = posts.filter(({ metadata }) => metadata.tags?.includes(searchParams.get('tag')));
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		posts = posts.filter(({ metadata }) => metadata.tags?.includes(searchParams.get('tag')!));
 	}
 
 	const sortedPosts = posts.sort((a, b) => {
 		return new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime();
 	});
 
-	return {
-		body: {
-			posts: sortedPosts as BlogPost[],
-		},
-	};
+	return json({ posts: sortedPosts });
 };

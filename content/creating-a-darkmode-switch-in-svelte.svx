@@ -45,7 +45,7 @@ Elements can then be styled with the `dark:` variant:
 We want to be able to toggle dark mode using a button on the page.
 
 ```typescript
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 
 const toggleDarkMode = () => {
 	if (browser) {
@@ -77,7 +77,7 @@ We will create a svelte store called `darkMode`.
 
 ```typescript
 /* lib/stores/darkmode.ts */
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
 const getIsDarkMode = () => {

@@ -1,27 +1,14 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-
-	export const load: Load = async ({ params, fetch }) => {
-		const data = await (await fetch(`/posts.json?tag=${encodeURIComponent(params.tag)}`)).json();
-
-		return {
-			status: 200,
-			props: {
-				posts: data.posts,
-			},
-		};
-	};
-</script>
-
 <script lang="ts">
 	import H from '$lib/components/core/H.svelte';
 	import PostList from '$lib/components/PostList.svelte';
-	import type { BlogPost } from 'src/routes/posts.json';
 	import { page } from '$app/stores';
 	import X from 'tabler-icons-svelte/icons/X';
 	import { slide } from 'svelte/transition';
+	import type { BlogPost } from '$lib/model/blogpost';
 
-	export let posts: BlogPost[];
+	export let data: { posts: BlogPost[] };
+
+	export const { posts } = data;
 </script>
 
 <div>
