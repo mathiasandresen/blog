@@ -19,14 +19,14 @@
 			<span class="text-4xl">Hello, my name is</span>
 			<span class="text-4xl font-bold">Mathias Andresen</span>
 		</h1>
-		<p class="mt-2">
-			I'm an upcoming Software Pilot at TRIFORK Aalborg ✈
-		</p>
+		<p class="mt-2">I'm a Software Pilot at TRIFORK Aalborg ✈</p>
 	</div>
 </div>
 <div>
 	<H level={2} class="mb-4">Some of my projects</H>
-	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 align-middle justify-around md:justify-start">
+	<div
+		class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 align-middle justify-around md:justify-start"
+	>
 		<PortfolioElement
 			title="Blog"
 			description="My developer blog where I write about whatever I want"

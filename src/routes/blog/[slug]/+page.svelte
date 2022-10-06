@@ -1,25 +1,15 @@
-<script>
+<script lang="ts">
+	import type { BlogPost } from '$lib/model/blogpost';
 	import H from '$lib/components/core/H.svelte';
 	import PostTagElement from '$lib/components/PostTagElement.svelte';
 	import Callout from '$lib/components/blog/Callout.svelte';
 	import { darkMode } from '$lib/stores/darkmode';
 	import dayjs from 'dayjs';
-	import '../prism.css';
+	import '../../../prism.css';
 
-	/** @type {string} */
-	export let title;
-
-	/**	@type {string[]} */
-	export let tags;
-
-	/** @type {string} */
-	export let standfirst;
-
-	/** @type {string} */
-	export let date;
-
-	/** @type {boolean} */
-	export let wip = false;
+	export let data: { post: BlogPost; Content: any };
+	const { post, Content } = data;
+	const { date, title, standfirst, tags, wip } = post.metadata;
 
 	const dateString = dayjs(date).format('MMMM D, YYYY');
 </script>
@@ -66,7 +56,7 @@
 	<article
 		class="blog-content prose prose-slate max-w-none dark:prose-invert before:prose-code:hidden after:prose-code:hidden"
 	>
-		<slot />
+		<svelte:component this={Content} />
 	</article>
 </div>
 

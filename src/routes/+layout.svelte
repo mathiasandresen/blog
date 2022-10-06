@@ -2,6 +2,8 @@
 	import Header from '$lib/components/Header.svelte';
 	import ToggleDarkModeButton from '$lib/components/ToggleDarkModeButton.svelte';
 	import '../app.css';
+
+	export const prerender = true;
 </script>
 
 <svelte:head>
